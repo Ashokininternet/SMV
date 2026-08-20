@@ -6,7 +6,7 @@
  * Edit the fields below to update school information, announcements, news, gallery images, and administration details.
  */
 
-const SMVSchoolData = {
+export const SMVSchoolData = {
   schoolInfo: {
     fullName: "S.M.V. Government Model Higher Secondary School",
     shortName: "SMV School",

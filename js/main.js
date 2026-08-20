@@ -2,6 +2,8 @@
  * S.M.V. GOVERNMENT MODEL HIGHER SECONDARY SCHOOL, THIRUVANANTHAPURAM
  * Main Interactive Logic & Placeholder Handler
  */
+//Importing the varuable form school-data file -by Ashok S.R
+import {SMVSchoolData} from './school-data.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   initSVGPlaceholderFallbacks();
@@ -11,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSearchModal();
   initScrollTopBtn();
   initContactForm();
+  console.log("This has been loaded");
 });
 
 /**
@@ -42,9 +45,10 @@ function initSVGPlaceholderFallbacks() {
 /**
  * Render Announcements Panel
  */
+//fix by ashok
 function renderAnnouncements() {
   const container = document.getElementById('announcements-container');
-  if (!container || !window.SMVSchoolData) return;
+  if (!container) return; 
 
   const listHtml = SMVSchoolData.announcements.map(item => `
     <div class="announcement-item">
@@ -58,16 +62,18 @@ function renderAnnouncements() {
     </div>
   `).join('');
 
+  // 3. Inject it into the page
   container.innerHTML = listHtml;
 }
+
 
 /**
  * Render Latest News Cards
  */
+//fix by ashok
 function renderLatestNews() {
   const container = document.getElementById('latest-news-container');
-  if (!container || !window.SMVSchoolData) return;
-
+  if (!container) return;
   const newsHtml = SMVSchoolData.latestNews.map(item => `
     <div class="col-md-6 col-lg-3 mb-4">
       <div class="news-card">
@@ -84,24 +90,24 @@ function renderLatestNews() {
       </div>
     </div>
   `).join('');
-
   container.innerHTML = newsHtml;
 }
+
 
 /**
  * Render Photo Gallery Grid
  */
+//FIx by ashok
 function renderGallery(filter = 'all') {
   const container = document.getElementById('gallery-grid-container');
-  if (!container || !window.SMVSchoolData) return;
-
-  const items = filter === 'all' 
+    if (!container) return;
+     const items = filter === 'all' 
     ? SMVSchoolData.gallery 
     : SMVSchoolData.gallery.filter(i => i.category === filter);
 
-  const galleryHtml = items.map(item => `
+    const galleryHtml = items.map(item => `
     <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-      <div class="gallery-item-card" onclick="openLightbox('${item.image}', '${item.title}')">
+      <div class="gallery-item-card" data-image="${item.image}" data-title="${item.title}">
         <img src="${item.image}" alt="${item.title}" class="img-fluid">
         <div class="gallery-item-overlay">
           <p class="gallery-item-title">${item.title}</p>
@@ -114,6 +120,7 @@ function renderGallery(filter = 'all') {
   container.innerHTML = galleryHtml;
   initSVGPlaceholderFallbacks();
 }
+
 
 /**
  * Gallery Filter Buttons Handler
